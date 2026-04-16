@@ -1,0 +1,261 @@
+[
+  {
+    "Producer-Consumer (Queue-based systems)": {
+      "explanation": "Producers generate events/tasks, consumers process them asynchronously via a queue. Decouples ingestion from processing and smooths load.",
+
+      "possible_constraints": [
+        {
+          "Strict ordering (global)": {
+            "explanation": "All events must be processed in exact order of arrival across the entire system.",
+            "when_why": "Financial ledgers, sequential logs, some trading systems where order defines correctness."
+          }
+        },
+
+        {
+          "Partitioned ordering (per key)": {
+            "explanation": "Ordering is required only within a key (e.g., userId, auctionId), not globally.",
+            "when_why": "Most real systems (payments per user, chat per room). Enables horizontal scaling."
+          }
+        },
+
+        {
+          "At-least-once processing": {
+            "explanation": "Messages may be delivered multiple times but must not be lost.",
+            "when_why": "Default in most queues (Kafka, SQS). Easier to guarantee than exactly-once."
+          }
+        },
+
+        {
+          "Exactly-once processing": {
+            "explanation": "Each message must be processed once and only once.",
+            "when_why": "Financial transactions, billing systems. Hard → requires idempotency + deduplication."
+          }
+        },
+
+        {
+          "High producer throughput > consumer capacity": {
+            "explanation": "Incoming rate exceeds processing rate → backlog builds.",
+            "when_why": "Traffic spikes, viral events, batch ingestion."
+          }
+        },
+
+        {
+          "Low latency processing required": {
+            "explanation": "Messages must be processed almost immediately.",
+            "when_why": "Fraud detection, real-time bidding."
+          }
+        },
+
+        {
+          "Retry & failure handling": {
+            "explanation": "Consumers may fail → messages must be retried safely.",
+            "when_why": "Unreliable downstream services, network failures."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Read-heavy system": {
+      "explanation": "System where reads far outnumber writes. Goal is low latency + high availability for reads.",
+
+      "possible_constraints": [
+        {
+          "Strict consistency (read-after-write)": {
+            "explanation": "User must immediately see their own writes.",
+            "when_why": "User profile updates, dashboards."
+          }
+        },
+
+        {
+          "Eventual consistency acceptable": {
+            "explanation": "Reads can be slightly stale.",
+            "when_why": "Feeds, recommendations, analytics."
+          }
+        },
+
+        {
+          "Hot keys / skew": {
+            "explanation": "Some data is accessed disproportionately more.",
+            "when_why": "Trending posts, celebrity accounts."
+          }
+        },
+
+        {
+          "Cache invalidation complexity": {
+            "explanation": "Ensuring cache correctness when underlying data changes.",
+            "when_why": "Frequent updates + caching."
+          }
+        },
+
+        {
+          "Large fan-out reads": {
+            "explanation": "Single request triggers many reads.",
+            "when_why": "Timeline generation, news feeds."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Write-heavy system": {
+      "explanation": "System optimized for massive ingestion (logs, metrics, events). Writes dominate reads.",
+
+      "possible_constraints": [
+        {
+          "Append-only requirement": {
+            "explanation": "Data is never updated, only appended.",
+            "when_why": "Logs, analytics pipelines."
+          }
+        },
+
+        {
+          "High durability": {
+            "explanation": "Data loss is unacceptable.",
+            "when_why": "Audit logs, financial systems."
+          }
+        },
+
+        {
+          "Write latency sensitive": {
+            "explanation": "Writes must be acknowledged quickly.",
+            "when_why": "User actions, real-time systems."
+          }
+        },
+
+        {
+          "Batch vs real-time ingestion": {
+            "explanation": "Tradeoff between throughput (batch) and latency (real-time).",
+            "when_why": "ETL vs streaming pipelines."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Distributed shared state": {
+      "explanation": "Multiple nodes/services need to read/write shared data consistently.",
+
+      "possible_constraints": [
+        {
+          "Strong consistency": {
+            "explanation": "All nodes must see the same value at all times.",
+            "when_why": "Leader election, locks, financial balances."
+          }
+        },
+
+        {
+          "Eventual consistency": {
+            "explanation": "Temporary divergence allowed.",
+            "when_why": "Social feeds, caching layers."
+          }
+        },
+
+        {
+          "Concurrent writes (conflicts)": {
+            "explanation": "Multiple writers update same data simultaneously.",
+            "when_why": "Collaborative editing, counters."
+          }
+        },
+
+        {
+          "Low latency global access": {
+            "explanation": "Users across regions need fast access.",
+            "when_why": "Global apps."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Real-time systems": {
+      "explanation": "Systems where response time is critical (sub-second to milliseconds).",
+
+      "possible_constraints": [
+        {
+          "Hard latency SLAs": {
+            "explanation": "Strict upper bound on response time.",
+            "when_why": "Trading, gaming, bidding systems."
+          }
+        },
+
+        {
+          "High concurrency": {
+            "explanation": "Many simultaneous users/events.",
+            "when_why": "Live streams, multiplayer games."
+          }
+        },
+
+        {
+          "State synchronization": {
+            "explanation": "Multiple clients must see consistent state in near real-time.",
+            "when_why": "Collaborative apps, games."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Rate limiting systems": {
+      "explanation": "Control how frequently users or systems can perform actions.",
+
+      "possible_constraints": [
+        {
+          "Per-user limits": {
+            "explanation": "Each user has independent quota.",
+            "when_why": "API usage limits."
+          }
+        },
+
+        {
+          "Global limits": {
+            "explanation": "System-wide cap.",
+            "when_why": "Protect backend systems."
+          }
+        },
+
+        {
+          "Distributed enforcement": {
+            "explanation": "Multiple servers must enforce limits consistently.",
+            "when_why": "Horizontally scaled APIs."
+          }
+        },
+
+        {
+          "Burst tolerance": {
+            "explanation": "Allow short spikes but limit sustained usage.",
+            "when_why": "User experience vs protection tradeoff."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "Search systems": {
+      "explanation": "Systems enabling fast querying over large datasets using indexes.",
+
+      "possible_constraints": [
+        {
+          "Near real-time indexing": {
+            "explanation": "New data must appear in search quickly.",
+            "when_why": "E-commerce, social media."
+          }
+        },
+
+        {
+          "Complex queries": {
+            "explanation": "Full-text, ranking, filtering.",
+            "when_why": "Search engines."
+          }
+        },
+
+        {
+          "High read QPS": {
+            "explanation": "Search is heavily read-dominated.",
+            "when_why": "User queries."
+          }
+        }
+      ]
+    }
+  }
+]
