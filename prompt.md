@@ -47,7 +47,9 @@ constraint and scenarios can be fetched from scenarios.json and things_learnt.md
 --------------------------------------
 
 I think i understand section 5 well now, can you please give me everything you covered till now in this section (ie section 5) as a single click to download .md file(ie for section 5). make in comprehensive, almost a 1:1 copy verbatim to your answer and no trimming truncating or using handwavy/slogan like language. Include the q&a we did at the end of the section and optionally any learnings from this section at the end of the .md as well!
+-----------
+I think i understand section 3 well now, can you please give me everything you covered till now in this section (ie section 3) as a single click to download .md file(ie for section 3). make in comprehensive, almost a 1:1 copy verbatim to your answer and no trimming truncating or using handwavy/slogan like language. Include the questions and answers to all the optional prompts you suggested (short answers, not too detail nor too shallow) at the end of the .md as well please 
 
 -----------------------------
 
-lets first generate a full markdown cheat sheet with all 6 sections. i want it to be comprehensive, not slogan like/handwavy, include examples, analogies and core concepts from every section. don't be parsimonious with explaining stuff, this is gods work we have done in this thread, lets leverage this completely before proceeding. give me the .md file as a click to download file please!
+lets first generate a full markdown cheat sheet with all 6 sections. i want it to be comprehensive, not slogan like/handwavy, include examples, analogies and core concepts from every section. don't be parsimonious with explaining stuff, this is gods work we have done in this thread, lets leverage this completely before proceeding. give me the .md file as a click to download file please. make it as elaborate/comprehensive as possible, i don't want to reprompt you after you generate a weak/disappointing v1
