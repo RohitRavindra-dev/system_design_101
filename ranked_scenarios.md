@@ -1,18 +1,18 @@
 🥇 Tier 1
 (Distributed shared state, Strong consistency)
 (Read-heavy system, Strict consistency – read-after-write)
-(Producer-Consumer, Retry & failure handling)
+(Producer-Consumer, Retry & failure handling) - todo
 (Producer-Consumer, At-least-once processing)
 (Producer-Consumer, Exactly-once processing)
-(Write-heavy system, Batch vs real-time ingestion)
+(Write-heavy system, Batch vs real-time ingestion) - todo
 (Real-time systems, Hard latency SLAs)
 (Producer-Consumer, Partitioned ordering (per key))
 🥈 Tier 2
 (Read-heavy system, Eventual consistency acceptable)
-(Distributed shared state, Eventual consistency)
-(Distributed shared state, Concurrent writes (conflicts))
+(Distributed shared state, Eventual consistency) - todo
+(Distributed shared state, Concurrent writes (conflicts)) - todo
 (Read-heavy system, Hot keys / skew)
-(Rate limiting systems, Distributed enforcement)
+(Rate limiting systems, Distributed enforcement) - todo
 (Producer-Consumer, High producer throughput > consumer capacity)
 (Producer-Consumer, Low latency processing required)
 (Producer-Consumer, Strict ordering (global))
