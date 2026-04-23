@@ -18,9 +18,9 @@
 (Producer-Consumer, Strict ordering (global))
 🥉 Tier 3
 (Read-heavy system, Cache invalidation complexity)
-(Rate limiting systems, Burst tolerance)
-(Rate limiting systems, Per-user limits)
-(Rate limiting systems, Global limits)
+(Rate limiting systems, Burst tolerance) - todo
+(Rate limiting systems, Per-user limits) - todo
+(Rate limiting systems, Global limits) - todo
 (Write-heavy system, Write latency sensitive)
 (Distributed shared state, Low latency global access)
 🪶 Tier 4
