@@ -1,7 +1,7 @@
 🥇 Tier 1
 (Distributed shared state, Strong consistency)
 (Read-heavy system, Strict consistency – read-after-write)
-(Producer-Consumer, Retry & failure handling) - todo
+(Producer-Consumer, Retry & failure handling)
 (Producer-Consumer, At-least-once processing)
 (Producer-Consumer, Exactly-once processing)
 (Write-heavy system, Batch vs real-time ingestion) - todo
